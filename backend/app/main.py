@@ -6,7 +6,9 @@ from app.database import engine, Base
 from app.routes import auth, speech, assessment, feedback, exercise, progress, history, profile
 
 # Ensure static uploads directories are created
-os.makedirs("./static/audio", exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_DIR = os.path.join(BASE_DIR, "static")
+os.makedirs(os.path.join(STATIC_DIR, "audio"), exist_ok=True)
 
 # Build SQLite database tables automatically at startup
 Base.metadata.create_all(bind=engine)

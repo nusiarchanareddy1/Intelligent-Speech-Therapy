@@ -2,12 +2,13 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# SQLite database file path definition
-DATABASE_URL = "sqlite:///./speech_therapy.db"
+# SQLite database file path definition, always resolved from backend folder
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'speech_therapy.db')}"
 
 # Create Database engine - disable same thread check for SQLite development
 engine = create_engine(
-  DATABASE_URL, 
+  DATABASE_URL,
   connect_args={"check_same_thread": False}
 )
 
