@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  nlp:
+    build:
+      context: ./NLP
+      dockerfile: Dockerfile
+    container_name: speech-therapy-nlp
+    ports:
+      - "8001:8001"
+    environment:
+      - PORT=8001
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: speech-therapy-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - NLP_SERVICE_URL=http://nlp:8001
+      - JWT_SECRET=lumina_speech_therapy_extremely_secure_key_1028
+    volumes:
+      - backend_data:/app/static/audio
+    depends_on:
+      - nlp
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: speech-therapy-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  backend_data:
