@@ -13,7 +13,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "ignoreDeprecations": "6.0",
 
     /* Linting */
     "strict": true,
@@ -22,6 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     "baseUrl": ".",
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["src/*"]
     }
