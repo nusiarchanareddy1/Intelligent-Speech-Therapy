@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+// Use a production API URL if provided via Vite env vars, otherwise
+// fall back to the relative '/api' path (works for local dev with proxy).
+const baseURL = (import.meta.env && import.meta.env.VITE_API_URL)
+  ? String(import.meta.env.VITE_API_URL)
+  : '/api';
+
 // Configure defaults for API requests
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
